@@ -7,6 +7,7 @@ export var cols = 4
 # var a = 2
 # var b = "text"
 var gridCls = preload("res://BoardGrid.tscn")
+var chess = preload("res://chess.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

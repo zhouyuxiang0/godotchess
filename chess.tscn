@@ -1,0 +1,10 @@
+[gd_scene format=2]
+
+[node name="chess" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+margin_right = 25.0
+margin_bottom = 25.0
+text = "che"
+align = 1
+valign = 1
