@@ -1,6 +1,7 @@
 extends Node2D
 tool
 
+signal onGridClick(girdName)
 enum GridType {cross,leftTop, rightTop, leftBottom, rightBottom, left, right, bottom, top}
 export(GridType) var gridType = GridType.cross
 # Declare member variables here. Examples:
@@ -37,3 +38,14 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func _on_Area2D_input_event(viewport, event, shape_idx):
+	if event.is_action_pressed('click'):
+		if not get_tree().is_input_handled():
+			emit_signal("onGridClick", self.name)
+			get_tree().set_input_as_handled()
+		elif event is InputEventScreenTouch:
+			if not get_tree().is_input_handled():
+				emit_signal("onGridClick", self.name)
+				get_tree().set_input_as_handled()

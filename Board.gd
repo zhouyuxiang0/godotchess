@@ -27,7 +27,6 @@ func _ready():
 			if (y == 0 or (y == 2 and (x == 1 or x == 7)) or (y == 3 and x % 2 == 0)) or \
 			(y == 9 or (y == 7 and (x == 1 or x == 7)) or (y == 6 and x%2==0)):
 				var text = chessPosition[Vector2(x,y)]
-				print(text)
 				if text:
 					var chess = chessCls.instance()
 					chess.set("position", Vector2(startX, startY))
@@ -50,6 +49,7 @@ func _ready():
 				grid.gridType = grid.GridType.left
 			elif colIdx == cols - 1:
 				grid.gridType = grid.GridType.right
+			grid.name = 'grid-' + str(rowIdx) + '-' + str(colIdx)
 			add_child(grid)
 			startX += 32
 			x += 1
