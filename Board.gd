@@ -12,6 +12,7 @@ var chessPosition = {Vector2(0,0): 'che', Vector2(1,0): 'ma', Vector2(2,0): 'xia
 Vector2(1,2): 'pao',Vector2(7,2): 'pao',Vector2(0,3): 'zu', Vector2(2,3): 'zu',Vector2(4,3):'zu',Vector2(6,3):'zu',Vector2(8,3):'zu',\
 Vector2(0,9): 'ju', Vector2(1,9): 'm', Vector2(2,9): 'x', Vector2(3,9): 's', Vector2(4,9): 'shuai',Vector2(5,9): 's',Vector2(6,9): 'x',Vector2(7,9): 'm', Vector2(8,9): 'ju',\
 Vector2(1,7): 'p',Vector2(7,7): 'p',Vector2(0,6): 'bing', Vector2(2,6): 'bing',Vector2(4,6):'bing',Vector2(6,6):'bing',Vector2(8,6):'bing'}
+var targetChessName = ''
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,6 +32,12 @@ func _ready():
 					var chess = chessCls.instance()
 					chess.set("position", Vector2(startX, startY))
 					chess.text = text
+					chess.name = 'chess-' + str(rowIdx) + '-' + str(colIdx)
+					if (y > 4):
+						chess.add_to_group('red')
+					else:
+						chess.add_to_group('black')
+					chess.connect("clickChess", self, 'onChessClick')
 					add_child(chess)
 			grid.set("position", Vector2(startX,startY))
 			if rowIdx == 0 and colIdx == 0:
@@ -50,14 +57,33 @@ func _ready():
 			elif colIdx == cols - 1:
 				grid.gridType = grid.GridType.right
 			grid.name = 'grid-' + str(rowIdx) + '-' + str(colIdx)
+			grid.connect("onGridClick", self, 'onGridClick')
 			add_child(grid)
 			startX += 32
 			x += 1
 		startY += 32
 		y += 1
 			
-
-
+func onChessClick(chessName: String):
+	targetChessName = chessName
+	print(targetChessName)
+func onGridClick(gridName: String):
+	print(targetChessName, gridName)
+	if not targetChessName:
+		return
+	var chessLoc = targetChessName.lstrip('chess-').split('-', false)
+	var chessVec = Vector2(int(chessLoc[1]), int(chessLoc[0]))
+	var gridLoc = gridName.lstrip('grid-').split('-', false)
+	var gridVec = Vector2(int(gridLoc[1]), int(gridLoc[0]))
+	move(targetChessName, chessVec, gridVec)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func move(chessName: String,chessVec: Vector2, targetVec: Vector2):
+	var node = get_node(chessName)
+	print(node.text, '----')
+	node.set('position', targetVec * 32)
+	#if chess.name == 'che':
+		

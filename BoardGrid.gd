@@ -45,7 +45,7 @@ func _on_Area2D_input_event(viewport, event, shape_idx):
 		if not get_tree().is_input_handled():
 			emit_signal("onGridClick", self.name)
 			get_tree().set_input_as_handled()
-		elif event is InputEventScreenTouch:
-			if not get_tree().is_input_handled():
-				emit_signal("onGridClick", self.name)
-				get_tree().set_input_as_handled()
+	elif event is InputEventScreenTouch:
+		if not get_tree().is_input_handled():
+			emit_signal("onGridClick", self.name)
+			get_tree().set_input_as_handled()
