@@ -7,11 +7,11 @@ signal clickChess(chessName)
 # var a = 2
 # var b = "text"
 export(String) var text = 'che'
+enum ChessType {che,ma,xiang,shi,jiang,pao,bing}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Sprite/Label.text = text
-	connect("moveTo", self, 'move')
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
